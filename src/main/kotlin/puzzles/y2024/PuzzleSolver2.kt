@@ -7,10 +7,6 @@ class PuzzleSolver2 {
 
     private val logger =  LoggerFactory.getLogger(javaClass)
 
-    private var reports : List<List<Int>> = File("src/main/resources/2024/advent_file_2.txt").useLines { lns ->
-            lns.toList().map { line -> line.split(" ").map { it.toInt() }.toList() }
-        }
-
     fun puzzle21() = reports.count { report -> isSafe(report) }
     fun puzzle22() = reports.count { report -> isSafeWithSkip(report) }
     fun puzzle22Alt() = reports.count { report -> isSafeWithSkipAlt(report) }
@@ -82,5 +78,12 @@ class PuzzleSolver2 {
             3 -> failIndexes.sorted()[1].let { isInRange(direction, report, it+1, it-1) }
             else -> false
         }
+    }
+
+    companion object {
+        private val reports : List<List<Int>> = File("src/main/resources/2024/advent_file_2.txt")
+            .useLines { lns ->
+                lns.toList().map { line -> line.split(" ").map { it.toInt() }.toList() }
+            }
     }
 }
