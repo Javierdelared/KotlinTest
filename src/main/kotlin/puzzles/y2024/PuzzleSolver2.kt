@@ -7,9 +7,9 @@ class PuzzleSolver2 {
 
     private val logger =  LoggerFactory.getLogger(javaClass)
 
-    fun puzzle21() = reports.count { report -> isSafe(report) }
-    fun puzzle22() = reports.count { report -> isSafeWithSkip(report) }
-    fun puzzle22Alt() = reports.count { report -> isSafeWithSkipAlt(report) }
+    fun puzzle21() = REPORTS.count { report -> isSafe(report) }
+    fun puzzle22() = REPORTS.count { report -> isSafeWithSkip(report) }
+    fun puzzle22Alt() = REPORTS.count { report -> isSafeWithSkipAlt(report) }
 
     private fun isSafe(report: List<Int>): Boolean {
         if (report.size < 2) return true
@@ -81,7 +81,7 @@ class PuzzleSolver2 {
     }
 
     companion object {
-        private val reports : List<List<Int>> = File("src/main/resources/2024/advent_file_2.txt")
+        private val REPORTS : List<List<Int>> = File("src/main/resources/2024/advent_file_2.txt")
             .useLines { lns ->
                 lns.toList().map { line -> line.split(" ").map { it.toInt() }.toList() }
             }
