@@ -15,7 +15,7 @@ class PuzzleSolver2 {
         if (report.size < 2) return true
         val direction = report[1].compareTo(report[0])
         return (1..<report.size).all { isInRange(direction, report, it, it-1) }.also {
-            logger.info("Report {} safety is {}", report, it)
+            logger.debug("Report {} safety is {}", report, it)
         }
     }
 
@@ -24,7 +24,7 @@ class PuzzleSolver2 {
     private fun isSafeWithSkip(report: List<Int>): Boolean {
         if (report.size < 3) return true
         return report.indices.any { skipIndex -> isSafeWithSkip(report, skipIndex) }.also {
-            logger.info("Report {} safety is {}", report, it)
+            logger.debug("Report {} safety is {}", report, it)
         }
     }
 
@@ -54,7 +54,7 @@ class PuzzleSolver2 {
         if (report.size < 3) return true
         val directions = listOf(-1, 1)
         return directions.any { isSafeWithSkipAlt(report, it) }.also {
-            logger.info("Report {} safety is {}", report, it)
+            logger.debug("Report {} safety is {}", report, it)
         }
     }
     private fun isSafeWithSkipAlt(report: List<Int>, direction : Int): Boolean {
