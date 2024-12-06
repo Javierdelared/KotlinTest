@@ -1,7 +1,7 @@
 package puzzles.y2024
 
 import org.slf4j.LoggerFactory
-import java.io.File
+import puzzles.utils.Utils
 
 class PuzzleSolver5 {
 
@@ -10,20 +10,18 @@ class PuzzleSolver5 {
     private var rules = mutableMapOf<Int, MutableSet<Int>>()
     private var updates = mutableListOf<List<Int>>()
     init {
-         File("src/main/resources/2024/advent_file_5.txt")
-            .useLines { lns ->
-                lns.toList().map { l ->
-                    if (l.contains(RULE_SEPARATOR)) {
-                        val rule = split(l, RULE_SEPARATOR)
-                        if (rules.containsKey(rule[0])) {
-                            rules[rule[0]]?.add(rule[1])
-                        } else {
-                            rules[rule[0]] = mutableSetOf(rule[1])
-                        }
+         Utils.getMatrix("src/main/resources/2024/advent_file_5.txt")
+            .map { l ->
+                if (l.contains(RULE_SEPARATOR)) {
+                    val rule = split(l, RULE_SEPARATOR)
+                    if (rules.containsKey(rule[0])) {
+                        rules[rule[0]]?.add(rule[1])
+                    } else {
+                        rules[rule[0]] = mutableSetOf(rule[1])
                     }
-                    if (l.contains(UPDATE_SEPARATOR)) {
-                        updates.add(split(l, UPDATE_SEPARATOR))
-                    }
+                }
+                if (l.contains(UPDATE_SEPARATOR)) {
+                    updates.add(split(l, UPDATE_SEPARATOR))
                 }
             }
     }

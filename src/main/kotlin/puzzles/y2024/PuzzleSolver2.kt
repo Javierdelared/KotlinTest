@@ -1,7 +1,7 @@
 package puzzles.y2024
 
 import org.slf4j.LoggerFactory
-import java.io.File
+import puzzles.utils.Utils
 
 class PuzzleSolver2 {
 
@@ -81,9 +81,7 @@ class PuzzleSolver2 {
     }
 
     companion object {
-        private val REPORTS : List<List<Int>> = File("src/main/resources/2024/advent_file_2.txt")
-            .useLines { lns ->
-                lns.toList().map { line -> line.split(" ").map { it.toInt() }.toList() }
-            }
+        private val REPORTS : List<List<Int>> = Utils.getMatrix("src/main/resources/2024/advent_file_2.txt")
+            .map { line -> line.split(" ").map { it.toInt() }.toList() }
     }
 }

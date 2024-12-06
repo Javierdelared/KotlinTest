@@ -2,7 +2,7 @@ package puzzles.y2024
 
 import puzzles.utils.Directions
 import puzzles.utils.Point2D
-import java.io.File
+import puzzles.utils.Utils
 
 class PuzzleSolver4 {
 
@@ -27,14 +27,7 @@ class PuzzleSolver4 {
     }
 
     companion object {
-        private val MATRIX : Map<Point2D, Char> = File("src/main/resources/2024/advent_file_4.txt")
-            .useLines { lns ->
-                lns.toList().mapIndexed { y, l ->
-                    l.mapIndexed { x, c ->
-                        Point2D(x, y) to c
-                    }
-                }.flatten().toMap()
-            }
+        private val MATRIX : Map<Point2D, Char> = Utils.mapMatrix("src/main/resources/2024/advent_file_4.txt")
 
         private const val SEARCH_WORD = "XMAS"
         private const val SEARCH_WORD_2 = "MAS"

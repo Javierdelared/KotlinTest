@@ -1,4 +1,4 @@
-package puzzles
+package puzzles.y2023
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test

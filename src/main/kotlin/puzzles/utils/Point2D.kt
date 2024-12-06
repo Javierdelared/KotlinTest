@@ -18,6 +18,14 @@ enum class Directions(val value : Point2D) {
     NW(Point2D(-1, -1));
 
     companion object {
+        fun turnRight90(d: Directions) = when(d) {
+            N -> E
+            E -> S
+            S -> W
+            W -> N
+            else -> throw NotImplementedError()
+        }
+
         val ORTHOGONAL_DIRECTIONS = listOf(N, E, S, W)
         val DIAGONAL_DIRECTIONS = listOf(NW, NE, SE, SW)
     }

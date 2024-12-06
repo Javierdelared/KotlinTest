@@ -1,6 +1,6 @@
 package puzzles.y2024
 
-import java.io.File
+import puzzles.utils.Utils
 import kotlin.math.abs
 
 class PuzzleSolver1 {
@@ -9,14 +9,13 @@ class PuzzleSolver1 {
     private var rightList = mutableListOf<Int>()
 
     init {
-        File("src/main/resources/2024/advent_file_1.txt").useLines { lns ->
-            lns.toList().forEach { line ->
+        Utils.getMatrix("src/main/resources/2024/advent_file_1.txt")
+            .forEach { line ->
                 line.split("   ").let {
                     leftList.add(it[0].toInt())
                     rightList.add(it[1].toInt())
                 }
             }
-        }
     }
     fun puzzle11(): Int {
         val sortedLeftList = leftList.sorted()
