@@ -2,7 +2,7 @@ package puzzles.y2024
 
 import puzzles.utils.Directions
 import puzzles.utils.Point2D
-import puzzles.utils.Utils
+import puzzles.utils.FileUtils
 import puzzles.utils.Vector2D
 
 class PuzzleSolver6 {
@@ -11,7 +11,7 @@ class PuzzleSolver6 {
     private val guardInitialVector: Vector2D
     init {
         var guardPosition: Point2D? = null
-        Utils.actOnMatrix("src/main/resources/2024/advent_file_6.txt") { pos, c ->
+        FileUtils.actOnMatrix("src/main/resources/2024/advent_file_6.txt") { pos, c ->
             if (c == GUARD) guardPosition = pos
             map[pos] = c
         }

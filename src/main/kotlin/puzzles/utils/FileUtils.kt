@@ -2,7 +2,7 @@ package puzzles.utils
 
 import java.io.File
 
-object Utils {
+object FileUtils {
     fun getMatrix(fileName: String) = File(fileName).useLines { lns -> lns.toList() }
 
     fun mapMatrix(fileName: String) =

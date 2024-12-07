@@ -2,7 +2,7 @@ package puzzles.y2024
 
 import puzzles.utils.Directions
 import puzzles.utils.Point2D
-import puzzles.utils.Utils
+import puzzles.utils.FileUtils
 
 class PuzzleSolver4 {
 
@@ -27,7 +27,7 @@ class PuzzleSolver4 {
     }
 
     companion object {
-        private val MATRIX : Map<Point2D, Char> = Utils.mapMatrix("src/main/resources/2024/advent_file_4.txt")
+        private val MATRIX : Map<Point2D, Char> = FileUtils.mapMatrix("src/main/resources/2024/advent_file_4.txt")
 
         private const val SEARCH_WORD = "XMAS"
         private const val SEARCH_WORD_2 = "MAS"
