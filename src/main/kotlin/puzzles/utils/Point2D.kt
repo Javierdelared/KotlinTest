@@ -5,6 +5,7 @@ data class Point2D(val x : Int, val y: Int) {
     fun move(m: Point2D) = moveTimes(m, 1)
     fun moveTimes(d: Directions, times: Int) = moveTimes(d.value, times)
     fun moveTimes(m: Point2D, times: Int) = Point2D(this.x + m.x * times, this.y + m.y * times)
+    fun isInRange(limit: Point2D) = this.x >= 0 && this.y >= 0 && this.x <= limit.x && this.y <= limit.y
 }
 
 enum class Directions(val value : Point2D) {

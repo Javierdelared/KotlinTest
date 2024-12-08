@@ -13,8 +13,11 @@ object FileUtils {
         }.flatten().toMap()
     fun actOnMatrix(fileName: String, action: (pos: Point2D, c: Char) -> Unit) =
         getMatrix(fileName).forEachIndexed { y, l ->
-                l.forEachIndexed { x, c ->
-                    action(Point2D(x, y), c)
-                }
+            l.forEachIndexed { x, c ->
+                action(Point2D(x, y), c)
             }
+        }
+
+    fun getLimitPoint(fileName: String) =
+        getMatrix(fileName).let { lns -> Point2D(lns[0].length - 1, lns.size - 1) }
 }
