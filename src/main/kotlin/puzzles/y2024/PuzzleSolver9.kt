@@ -25,31 +25,51 @@ class PuzzleSolver9 {
         val fragmentedSpaces = freeDiskSpaces.map { diskSpace -> diskSpace.fragmentSpace() }.flatten()
 
         return fragmentedFiles.reversed().map { diskFile ->
-            if (fragmentedSpaces.isNotEmpty()) {
-                fragmentedSpaces.removeFirst().let { freeSpace ->
-                    if (freeSpace.position <= diskFile.diskSpace.position)
-                        DiskFile(DiskSpace(freeSpace.position, diskFile.diskSpace.size), diskFile.fileIndex)
-                    else diskFile
-                }
-            } else diskFile
+            fragmentedSpaces.takeIf {
+                it.isNotEmpty()
+            }?.first().takeIf { freeSpace ->
+                isValidSpace(freeSpace, diskFile)
+            }?.let { freeSpace ->
+                fragmentedSpaces.removeFirst()
+                DiskFile(DiskSpace(freeSpace.position, 1), diskFile.fileIndex)
+            } ?: diskFile
         }.sumOf { it.checkSum() }
     }
 
     fun puzzle92(): Long {
-        val freeDiskSpacesSet = freeDiskSpaces.toSortedSet(compareBy { it.position })
+        var freeDiskSpacesList = freeDiskSpaces
         return diskFiles.reversed().map { diskFile ->
-            val freeSpace = freeDiskSpacesSet.find { freeSpace -> freeSpace.size >= diskFile.diskSpace.size }
-            if (freeSpace != null && freeSpace.position < diskFile.diskSpace.position) {
-                freeDiskSpacesSet.remove(freeSpace)
-                val newSpace = DiskSpace(
-                    position = freeSpace.position + diskFile.diskSpace.size,
-                    size = freeSpace.size - diskFile.diskSpace.size
-                )
-                freeDiskSpacesSet.add(newSpace)
+            freeDiskSpacesList.find { freeSpace ->
+                freeSpace.size >= diskFile.diskSpace.size
+            }.takeIf { freeSpace ->
+                isValidSpace(freeSpace, diskFile)
+            }?.let { freeSpace ->
+                freeDiskSpacesList = removeFreeSpace(freeDiskSpacesList, freeSpace, diskFile)
                 DiskFile(DiskSpace(freeSpace.position, diskFile.diskSpace.size), diskFile.fileIndex)
-            } else diskFile
+            } ?: diskFile
         }.sumOf { it.checkSum() }
     }
+
+    private fun isValidSpace(freeSpace: DiskSpace?, diskFile: DiskFile) =
+        freeSpace != null && freeSpace.position < diskFile.diskSpace.position
+
+    private fun removeFreeSpace(
+        freeDiskSpacesList: MutableList<DiskSpace>,
+        freeSpace: DiskSpace,
+        diskFile: DiskFile
+    ) = if (freeSpace.size == diskFile.diskSpace.size) {
+            freeDiskSpacesList.remove(freeSpace)
+            freeDiskSpacesList
+        } else {
+            val newSpace = DiskSpace(
+                position = freeSpace.position + diskFile.diskSpace.size,
+                size = freeSpace.size - diskFile.diskSpace.size
+            )
+            freeDiskSpacesList.indexOf(freeSpace).let {
+                (freeDiskSpacesList.subList(0, it) + mutableListOf(newSpace) +
+                    freeDiskSpacesList.subList(it + 1, freeDiskSpacesList.size)).toMutableList()
+            }
+        }
 
     companion object {
         private val DISK_MAP = File("src/main/resources/2024/advent_file_9.txt")
