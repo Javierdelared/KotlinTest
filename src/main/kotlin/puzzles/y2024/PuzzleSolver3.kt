@@ -34,7 +34,7 @@ class PuzzleSolver3 {
     }
 
     companion object {
-        private var INSTRUCTIONS : String = File("src/main/resources/2024/advent_file_3.txt")
+        private var INSTRUCTIONS = File("src/main/resources/2024/advent_file_3.txt")
             .inputStream().readBytes().toString(Charsets.UTF_8)
 
         private val REGEX_MUL = Regex("mul\\(([1-9][0-9]{0,2}),([1-9][0-9]{0,2})\\)")
