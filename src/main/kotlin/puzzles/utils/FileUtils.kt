@@ -11,6 +11,7 @@ object FileUtils {
                 Point2D(x, y) to c
             }
         }.flatten().toMap()
+
     fun actOnMatrix(fileName: String, action: (pos: Point2D, c: Char) -> Unit) =
         getMatrix(fileName).forEachIndexed { y, l ->
             l.forEachIndexed { x, c ->
